@@ -20,7 +20,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     NSMutableArray *mutArr = [NSMutableArray array];
-    NSArray *titleArr = @[@"精选",@"电影",@"世界杯",@"明日之子",@"电视剧",@"NBA",@"花样年华"];
+    NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影",@"电视剧",@"NBA",@"花样年华"];
     for (int i = 0; i < 7; i++) {
         YHDetailsTabController *tabVC = [YHDetailsTabController new];
         tabVC.title = titleArr[i];
