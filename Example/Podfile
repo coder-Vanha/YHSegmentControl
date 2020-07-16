@@ -1,0 +1,18 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+
+target 'YHSegmentViewExample' do
+
+   pod 'YHSegmentView', :path => '../YHSegmentView.podspec'
+
+   pod 'SDWebImage'
+
+  target 'YHSegmentViewExampleTests' do
+    inherit! :search_paths
+  end
+
+  target 'YHSegmentViewExampleUITests' do
+     end
+
+end

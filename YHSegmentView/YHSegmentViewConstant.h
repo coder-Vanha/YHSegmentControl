@@ -10,10 +10,11 @@
 #define YHSegmentViewConstant_h
 
 /**<< RGB颜色 <<*/
-#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
-#define RGB(r,g,b) RGBA(r,g,b,1.0f)
+#define YH_RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+#define YH_RGB(r,g,b) YH_RGBA(r,g,b,1.0f)
 /**<< 十六进制颜色 <<*/
-#define HEX_COLOR(hex) [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16)) / 255.0 green:((float)((hex & 0xFF00) >> 8)) / 255.0 blue:((float)(hex & 0xFF)) / 255.0 alpha:1]
+#define YH_HEX_COLOR(hex) [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16)) / 255.0 green:((float)((hex & 0xFF00) >> 8)) / 255.0 blue:((float)(hex & 0xFF)) / 255.0 alpha:1]
 
 /**<< 头部segementView的高度 <<*/
 #define YH_SegmentViewHeight 44.f
