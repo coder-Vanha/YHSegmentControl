@@ -43,7 +43,7 @@ YHSegmentViewDelegate
   
   //   NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子"];
     
-    NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子明日之子明日之子明日之子明日之子明日之子明日之子明日之子",@"电影",@"电视剧",@"NBA",@"花样年华",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育"];
+    NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影",@"电视剧",@"NBA",@"花样年华",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育"];
   
     NSArray *titleModels4NewUI = [YHSegmentItmeModel itemsWithTitles:titleArr];
     

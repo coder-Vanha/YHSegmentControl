@@ -79,9 +79,9 @@ static CGFloat currentIndex = 0;
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     NSMutableArray *vcMutArr = [NSMutableArray array];
-    NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影"];
+   // NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影"];
     
-//     NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影",@"电视剧",@"NBA",@"花样年华",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育"];
+     NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影",@"电视剧",@"NBA",@"花样年华",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育"];
     NSMutableArray *titleModels4NewUI = [NSMutableArray array];
     
     for (int i = 0; i < titleArr.count; i++) {
@@ -156,22 +156,9 @@ static CGFloat currentIndex = 0;
     [self.segmentViewControl yh_scrollViewDidScroll:scrollView];
 }
 
-
-
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.segmentViewControl yh_scrollViewDidEndDecelerating:scrollView];
-   // NSLog(@"减速完成----333333");
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.segmentViewControl yh_scrollViewWillBeginDragging:scrollView];
 }
-
-
-
-//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-//    NSLog(@"----444444");
-//}
-
-
-
 
 
 

@@ -47,7 +47,7 @@ currentSelectIndex:(NSInteger)index
 
 // By call this method to achieve linkage effect
 - (void)yh_scrollViewDidScroll:(UIScrollView *)scrollView;
-- (void)yh_scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+- (void)yh_scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 
 
 @end
