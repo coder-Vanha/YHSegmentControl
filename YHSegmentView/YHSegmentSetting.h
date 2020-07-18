@@ -18,10 +18,6 @@ typedef NS_ENUM(NSInteger , YHIndictorStyle) {
     YHIndictorStyleNature         =  1 << 2, // 给定宽度， 自然滑动
 };
 
-//typedef NS_ENUM(NSInteger , YHItemTransformStyle) {
-//    YHItemTransformStyleDefault            =  1 << 0, // 直接切换文字
-//    YHItemTransformStyleSmoothness         =  1 << 1, // 渐变切换文字
-//};
 
 typedef NS_ENUM(NSInteger , YHItemContentType) {
     YHItemContentTypeText         =  1 << 0, // 纯文字
@@ -31,17 +27,23 @@ typedef NS_ENUM(NSInteger , YHItemContentType) {
 @interface YHSegmentItmeModel : NSObject
 
 @property (nonatomic, copy)     NSString    * title;
+
 @property (nonatomic, strong)   UIImage     * image;
 @property (nonatomic, copy)     NSString    * imageURL;
 @property (nonatomic, copy)     NSString    * imageWidth;
 @property (nonatomic, copy)     NSString    * imageHeight;
+
+@property (nonatomic, strong)   UIImage     * selectedImage;
+@property (nonatomic, copy)     NSString    * selectedImageURL;
+@property (nonatomic, copy)     NSString    * selectedImageWidth;
+@property (nonatomic, copy)     NSString    * selectedImageHeight;
 
 @property (nonatomic, assign)   BOOL        showBadge;
 @property (nonatomic, strong)   UIColor     * badgeDotColor;
 @property (nonatomic, assign)   CGSize        dotSize;
 @property (nonatomic, copy)     NSString    * badgeURL;
 
-//@property (nonatomic, assign)   UIEdgeInsets   itemInsets;
+
 @property (nonatomic, assign)   CGSize      itemSize;
 
 @property (nonatomic, copy)   NSAttributedString  * titleNormalAttributedStri;
@@ -54,13 +56,17 @@ typedef NS_ENUM(NSInteger , YHItemContentType) {
 + (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *) titles;
 
 //+ (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font height:(CGFloat)height;
+//
+//+ (NSAttributedString *)attributedStringWithString:(NSString *)string font:(UIFont *)font color:(UIColor *)color;
 
-+ (NSAttributedString *)attributedStringWithString:(NSString *)string font:(UIFont *)font color:(UIColor *)color;
-
-
-+ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor normalFont:(UIFont *)normalFont selectedFont:(UIFont *)selectedFont height:(CGFloat)height insets:(UIEdgeInsets)insets;
++ (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *) titles  setting:(YHSegmentSetting *)setting;
 
 + (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title setting:(YHSegmentSetting *)setting;
+
++ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title selectedImage:(UIImage *)selectedImage setting:(YHSegmentSetting *)setting;
+
++ (YHSegmentItmeModel *)itmeModelWithImage:(UIImage *)image selectedImage:(UIImage *)selectedImage setting:(YHSegmentSetting *)setting;
+
 
 @end
 

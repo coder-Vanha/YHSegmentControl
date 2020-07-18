@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YHSubViewController : UIViewController
 
 @property (nonatomic, strong) YHSegmentSetting *setting;
+@property (nonatomic, strong) NSArray *dataSource;
 
 @end
 

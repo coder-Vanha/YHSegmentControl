@@ -116,7 +116,7 @@
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
     item.badgeDotColor = [UIColor redColor];
     item.title = title;
-    [item loadWebImage];
+   // [item loadWebImage];
     
     if (title.length > 0 && setting.titleNormalColor && setting.titleSelectColor && setting.titleNormalFont && setting.titleSelectFont) {
         
@@ -139,7 +139,7 @@
 + (YHSegmentSetting *)defaultSetting
 {
     YHSegmentSetting *setting = [YHSegmentSetting new];
-    
+    setting.itemContentType = YHItemContentTypeText;
     setting.menuHeight = 44;
     
     setting.titleNormalColor = YH_RGBA(135,138,153,1);

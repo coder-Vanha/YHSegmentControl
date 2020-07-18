@@ -8,6 +8,7 @@
 #import "YHSegmentItem.h"
 #import "YHSegmentSetting.h"
 #import "UIView+YHSize.h"
+#import "SDWebImage.h"
 
  NSString * const kYHSegmentItemCellID = @"kYHSegmentItemCellID";
 
@@ -15,7 +16,7 @@
 
 @property (nonatomic, strong) CALayer *redDot;
 @property (nonatomic, strong) UIButton *itemBtn;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *tips;
 @property (nonatomic, strong) YHSegmentItmeModel *model;
 @property (nonatomic, strong) YHSegmentSetting *setting;
 
@@ -27,7 +28,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:self.itemBtn];
-        //[self addSubview:self.imageView];
+        [self addSubview:self.tips];
         [self.layer addSublayer:self.redDot];
         
     }
@@ -47,7 +48,26 @@
     _itemBtn.titleLabel.font = setting.titleSelectFont;
     _itemBtn.titleLabel.textColor = setting.titleNormalColor;
     
-    _redDot.hidden = !itemModel.showBadge;
+
+    
+    if (itemModel.showBadge) {
+        if (itemModel.badgeURL.length > 0) {
+            _tips.hidden = NO;
+            _redDot.hidden = YES;
+            _tips.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.dotSize.width, 0, self.model.dotSize.width, self.model.dotSize.height);
+            [self.tips sd_setImageWithURL:[NSURL URLWithString:itemModel.badgeURL]];
+            
+            self.tips.backgroundColor = [UIColor redColor];
+        } else {
+            _tips.hidden = YES;
+            _redDot.hidden = NO;
+            _redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-6, 6, self.model.dotSize.width, self.model.dotSize.height);
+            _redDot.cornerRadius = MIN(self.model.dotSize.width, self.model.dotSize.height)/2;
+        }
+    } else {
+        _redDot.hidden = YES;
+        _tips.hidden = YES;
+    }
     
     CGAffineTransform currentTransform = CGAffineTransformMakeScale(setting.BaseScale, setting.BaseScale);
     _itemBtn.transform = currentTransform;
@@ -56,10 +76,19 @@
     [_itemBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [_itemBtn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     
+    if (setting.itemContentType == YHItemContentTypeText) {
+         [_itemBtn setImage:nil forState:UIControlStateNormal];
+        [_itemBtn setTitle:itemModel.title forState:UIControlStateNormal];
+    } else if (setting.itemContentType == YHItemContentTypeImageText){
+        if (itemModel.image) {
+             [_itemBtn setTitle:@"" forState:UIControlStateNormal];
+            [_itemBtn setImage:itemModel.image forState:UIControlStateNormal];
+        } else {
+            [_itemBtn setTitle:itemModel.title forState:UIControlStateNormal];
+        }
+    }
     
-    [_itemBtn setTitle:itemModel.title forState:UIControlStateNormal];
-    
-    
+
 }
 
 - (void)yh_setAnimationWithItemStatus:(YHSegmentItemStatus)status absRatio:(CGFloat)absRatio transScale:(CGFloat)transScale{
@@ -83,7 +112,15 @@
                     break;
                 case YHItemContentTypeImageText:
                 {
-                    
+                    if (_model.image) {
+                        [_itemBtn setTitle:@"" forState:UIControlStateNormal];
+                        [_itemBtn setImage:_model.image forState:UIControlStateNormal];
+                    } else {
+                        [_itemBtn setImage:nil forState:UIControlStateNormal];
+                        [_itemBtn setTitle:_model.title forState:UIControlStateNormal];
+                    }
+                    CGAffineTransform currentTransform = CGAffineTransformMakeScale(transScale, transScale);
+                    self.itemBtn.transform = currentTransform;
                 }
                     break;
                     
@@ -107,7 +144,15 @@
                     break;
                 case YHItemContentTypeImageText:
                 {
-                    
+                    if (_model.selectedImage) {
+                        [_itemBtn setTitle:@"" forState:UIControlStateNormal];
+                        [_itemBtn setImage:_model.selectedImage forState:UIControlStateNormal];
+                    } else {
+                        [_itemBtn setImage:nil forState:UIControlStateNormal];
+                        [_itemBtn setTitle:_model.title forState:UIControlStateNormal];
+                    }
+                    CGAffineTransform currentTransform = CGAffineTransformMakeScale(transScale, transScale);
+                    self.itemBtn.transform = currentTransform;
                 }
                     break;
                     
@@ -198,19 +243,19 @@
     return _itemBtn;
 }
 
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] init];
+- (UIImageView *)tips {
+    if (!_tips) {
+        _tips = [[UIImageView alloc] init];
     }
-    return _imageView;
+    return _tips;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.imageView.frame = self.bounds;
+   // self.tips.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.dotSize.width, 6, self.model.dotSize.width, self.model.dotSize.height);
     self.itemBtn.frame = self.bounds;
-    self.redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-6, 6, 6, 6);
+  //  self.redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-6, 6, self.model.dotSize.width, self.model.dotSize.height);
 }
 
 @end

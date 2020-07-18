@@ -178,7 +178,7 @@ UICollectionViewDelegateFlowLayout
         }
     } else {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-        UICollectionViewCell *item = [self.titleBarColView cellForItemAtIndexPath:indexPath];
+        YHSegmentItem *item = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:indexPath];
         
         CGFloat indicatorWidth = self.setting.indicatorSize.width;
         if (self.setting.indicatorStyle == YHIndictorStyleAlignToTitle ) {
@@ -186,7 +186,9 @@ UICollectionViewDelegateFlowLayout
         }
         self.indicator.width = indicatorWidth;
         self.indicator.centerX = item.centerX;
-        
+        [self scrollIndicatorWithPriorIndex:index nextIndex:index absRatio:1];
+//        [item yh_changeTitleColorFromColor:self.setting.titleNormalColor toColor:self.setting.titleSelectColor percent:absRatio];
+//        [item yh_setAnimationWithItemStatus:YHSegmentItemStatusSelected absRatio:absRatio transScale:baseScale*toSelectedScale];
     }
 
 
@@ -251,7 +253,6 @@ UICollectionViewDelegateFlowLayout
     
     if (nextItem) {
         [UIView animateWithDuration:0.3 animations:^{
-          //  CGFloat x = nextItem.left + nextItem.width/2.0 - indicatorWidth/2.0;
             self.indicator.centerX = nextItem.centerX;
             self.indicator.width = indicatorWidth;
         }];
@@ -262,17 +263,17 @@ UICollectionViewDelegateFlowLayout
     CGFloat toNormalScale = self.setting.MaxZoomScale - (self.setting.MaxZoomScale - 1) * absRatio;
     CGFloat toSelectedScale = 1 + (self.setting.MaxZoomScale - 1) * absRatio;
     
-    if (nextItem) {
-        [nextItem yh_changeTitleColorFromColor:self.setting.titleNormalColor toColor:self.setting.titleSelectColor percent:absRatio];
-        [nextItem yh_setAnimationWithItemStatus:YHSegmentItemStatusSelected absRatio:absRatio transScale:baseScale*toSelectedScale];
-    }
-    
     if (priorItem) {
         [priorItem yh_changeTitleColorFromColor:self.setting.titleSelectColor toColor:self.setting.titleNormalColor percent:absRatio];
         [priorItem yh_setAnimationWithItemStatus:YHSegmentItemStatusNormal absRatio:absRatio transScale:baseScale*toNormalScale];
     }
     
-
+    if (nextItem) {
+        [nextItem yh_changeTitleColorFromColor:self.setting.titleNormalColor toColor:self.setting.titleSelectColor percent:absRatio];
+        [nextItem yh_setAnimationWithItemStatus:YHSegmentItemStatusSelected absRatio:absRatio transScale:baseScale*toSelectedScale];
+    }
+    
+   
 }
 
 

@@ -46,7 +46,7 @@ YHSegmentControlDelegate
 
 @property (nonatomic, strong) YHSegmentControl *segmentViewControl;
 @property (nonatomic, strong) UICollectionView *containerView;
-@property (nonatomic, strong) NSArray *dataSource;
+
 
 @end
 
@@ -78,16 +78,8 @@ YHSegmentControlDelegate
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
    
-    NSArray *titleArr = @[@"关注",@"2020推荐",@"精选",@"抗击疫情",@"小视频",@"电影",@"电视剧",@"NBA",@"体育"];
-    NSMutableArray *titleModels = [NSMutableArray array];
-    
-    for (int i = 0; i < titleArr.count; i++) {
-        YHSegmentItmeModel *model = [YHSegmentItmeModel itmeModelWithTitle:titleArr[i] setting:_setting];
-        [titleModels addObject:model];
-    }
-    
-    self.dataSource = [titleModels copy];
-    containerView.contentSize = CGSizeMake(titleArr.count * CGRectGetWidth(containerView.frame), CGRectGetHeight(containerView.frame));
+
+    containerView.contentSize = CGSizeMake(self.dataSource.count * CGRectGetWidth(containerView.frame), CGRectGetHeight(containerView.frame));
     
   
     
@@ -98,7 +90,7 @@ YHSegmentControlDelegate
     
 
 
-    YHSegmentControl *segmentControl = [YHSegmentControl yh_segmentControlWithModels:titleModels setting:_setting currentSelectIndex:0 pageScrollView:containerView delegate:self];
+    YHSegmentControl *segmentControl = [YHSegmentControl yh_segmentControlWithModels:self.dataSource setting:_setting currentSelectIndex:0 pageScrollView:containerView delegate:self];
     segmentControl.frame = CGRectMake(0, 60, 340, 44);
     segmentControl.backgroundColor = [UIColor greenColor];
     _segmentViewControl = segmentControl;
@@ -121,10 +113,9 @@ YHSegmentControlDelegate
     YHSegmentPageItem *cell = (YHSegmentPageItem *)[collectionView dequeueReusableCellWithReuseIdentifier:@"YHSegmentPageItemCellID" forIndexPath:indexPath];
     
     if (self.dataSource.count > indexPath.row) {
-          YHSegmentItmeModel *model = [self.dataSource objectAtIndex:indexPath.item];
+        YHSegmentItmeModel *model = [self.dataSource objectAtIndex:indexPath.item];
         cell.litstView.title = [NSString stringWithFormat:@"%@--%ld",model.title,(long)indexPath.item];
         
-       // NSLog(@"😄---%@",model.title);
     }
   
     return cell;
