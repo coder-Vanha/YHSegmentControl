@@ -2,21 +2,26 @@
   "name": "YHSegmentView",
   "version": "0.0.2",
   "summary": "快速实现分页管理控制器",
-  "homepage": "https://github.com/wanwandiligent/YHSegmentView",
+  "homepage": "https://github.com/coder-Vanha/YHSegmentView",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "万叶华": "137177787@qq.com"
+    "Vanha": "137177787@qq.com"
   },
   "platforms": {
     "ios": "8.0"
   },
   "source": {
-    "git": "https://github.com/wanwandiligent/YHSegmentView.git",
+    "git": "https://github.com/coder-Vanha/YHSegmentView.git",
     "tag": "0.0.2"
   },
   "source_files": "YHSegmentView/**/*.{h,m}",
-  "requires_arc": true
+  "requires_arc": true,
+  "dependencies": {
+    "SDWebImage": [
+
+    ]
+  }
 }

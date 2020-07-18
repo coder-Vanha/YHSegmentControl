@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3598DF1F4472447EA8FD6712 /* libPods-YHSegmentViewExample-YHSegmentViewExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 581AF0B53FAEA7764DB0E05A /* libPods-YHSegmentViewExample-YHSegmentViewExampleUITests.a */; };
-		653C773424BDE38900C44099 /* YHHorizontalLinkageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 653C773324BDE38900C44099 /* YHHorizontalLinkageVC.m */; };
-		653C773724BDE3C500C44099 /* YHVerticalLinkageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 653C773624BDE3C500C44099 /* YHVerticalLinkageVC.m */; };
+		652BE83924C308C00038B433 /* YHSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BE83824C308C00038B433 /* YHSubViewController.m */; };
 		65CDBA3820EA57DC00937F45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA3720EA57DC00937F45 /* AppDelegate.m */; };
 		65CDBA3B20EA57DC00937F45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA3A20EA57DC00937F45 /* ViewController.m */; };
 		65CDBA3E20EA57DC00937F45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CDBA3C20EA57DC00937F45 /* Main.storyboard */; };
@@ -20,7 +19,6 @@
 		65CDBA5320EA57DD00937F45 /* YHSegmentViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA5220EA57DD00937F45 /* YHSegmentViewExampleTests.m */; };
 		65CDBA5E20EA57DD00937F45 /* YHSegmentViewExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA5D20EA57DD00937F45 /* YHSegmentViewExampleUITests.m */; };
 		65CDBA7B20EA587600937F45 /* YHMainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA7420EA587600937F45 /* YHMainTabController.m */; };
-		65CDBA7D20EA587600937F45 /* YHSpaceStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CDBA7820EA587600937F45 /* YHSpaceStyleViewController.m */; };
 		65D71BE824BC957D00F08C3F /* YHTableViewListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D71BE724BC957D00F08C3F /* YHTableViewListView.m */; };
 		9DCAD34FF3ACC12E851D17B1 /* libPods-YHSegmentViewExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBCB81631EFDD230BD0A2153 /* libPods-YHSegmentViewExampleTests.a */; };
 		BF6E4138CC891304351FF5EB /* libPods-YHSegmentViewExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4016F9D849068D7596B9CF2 /* libPods-YHSegmentViewExample.a */; };
@@ -45,10 +43,8 @@
 
 /* Begin PBXFileReference section */
 		581AF0B53FAEA7764DB0E05A /* libPods-YHSegmentViewExample-YHSegmentViewExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YHSegmentViewExample-YHSegmentViewExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		653C773224BDE38900C44099 /* YHHorizontalLinkageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHHorizontalLinkageVC.h; sourceTree = "<group>"; };
-		653C773324BDE38900C44099 /* YHHorizontalLinkageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHHorizontalLinkageVC.m; sourceTree = "<group>"; };
-		653C773524BDE3C500C44099 /* YHVerticalLinkageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHVerticalLinkageVC.h; sourceTree = "<group>"; };
-		653C773624BDE3C500C44099 /* YHVerticalLinkageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHVerticalLinkageVC.m; sourceTree = "<group>"; };
+		652BE83724C308C00038B433 /* YHSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHSubViewController.h; sourceTree = "<group>"; };
+		652BE83824C308C00038B433 /* YHSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHSubViewController.m; sourceTree = "<group>"; };
 		65CDBA3320EA57DC00937F45 /* YHSegmentViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHSegmentViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CDBA3620EA57DC00937F45 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		65CDBA3720EA57DC00937F45 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -66,10 +62,8 @@
 		65CDBA5920EA57DD00937F45 /* YHSegmentViewExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YHSegmentViewExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CDBA5D20EA57DD00937F45 /* YHSegmentViewExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHSegmentViewExampleUITests.m; sourceTree = "<group>"; };
 		65CDBA5F20EA57DD00937F45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65CDBA7320EA587600937F45 /* YHSpaceStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHSpaceStyleViewController.h; sourceTree = "<group>"; };
 		65CDBA7420EA587600937F45 /* YHMainTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMainTabController.m; sourceTree = "<group>"; };
 		65CDBA7720EA587600937F45 /* YHMainTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMainTabController.h; sourceTree = "<group>"; };
-		65CDBA7820EA587600937F45 /* YHSpaceStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHSpaceStyleViewController.m; sourceTree = "<group>"; };
 		65D71BE624BC957D00F08C3F /* YHTableViewListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHTableViewListView.h; sourceTree = "<group>"; };
 		65D71BE724BC957D00F08C3F /* YHTableViewListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHTableViewListView.m; sourceTree = "<group>"; };
 		6FFB3E3FBA03A5BDBCDD6ADB /* Pods-YHSegmentViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YHSegmentViewExample.release.xcconfig"; path = "Target Support Files/Pods-YHSegmentViewExample/Pods-YHSegmentViewExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,16 +173,12 @@
 		65CDBA7120EA587600937F45 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				653C773224BDE38900C44099 /* YHHorizontalLinkageVC.h */,
-				653C773324BDE38900C44099 /* YHHorizontalLinkageVC.m */,
 				65CDBA7720EA587600937F45 /* YHMainTabController.h */,
 				65CDBA7420EA587600937F45 /* YHMainTabController.m */,
-				65CDBA7320EA587600937F45 /* YHSpaceStyleViewController.h */,
-				65CDBA7820EA587600937F45 /* YHSpaceStyleViewController.m */,
 				65D71BE624BC957D00F08C3F /* YHTableViewListView.h */,
 				65D71BE724BC957D00F08C3F /* YHTableViewListView.m */,
-				653C773524BDE3C500C44099 /* YHVerticalLinkageVC.h */,
-				653C773624BDE3C500C44099 /* YHVerticalLinkageVC.m */,
+				652BE83724C308C00038B433 /* YHSubViewController.h */,
+				652BE83824C308C00038B433 /* YHSubViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -422,11 +412,9 @@
 				65CDBA3820EA57DC00937F45 /* AppDelegate.m in Sources */,
 				65CDBA7B20EA587600937F45 /* YHMainTabController.m in Sources */,
 				65CDBA4920EA57DD00937F45 /* main.m in Sources */,
-				65CDBA7D20EA587600937F45 /* YHSpaceStyleViewController.m in Sources */,
 				65D71BE824BC957D00F08C3F /* YHTableViewListView.m in Sources */,
 				65CDBA4120EA57DC00937F45 /* YHSegmentViewExample.xcdatamodeld in Sources */,
-				653C773424BDE38900C44099 /* YHHorizontalLinkageVC.m in Sources */,
-				653C773724BDE3C500C44099 /* YHVerticalLinkageVC.m in Sources */,
+				652BE83924C308C00038B433 /* YHSubViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

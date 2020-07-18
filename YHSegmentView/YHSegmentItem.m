@@ -47,6 +47,8 @@
     _itemBtn.titleLabel.font = setting.titleSelectFont;
     _itemBtn.titleLabel.textColor = setting.titleNormalColor;
     
+    _redDot.hidden = !itemModel.showBadge;
+    
     CGAffineTransform currentTransform = CGAffineTransformMakeScale(setting.BaseScale, setting.BaseScale);
     _itemBtn.transform = currentTransform;
     [_itemBtn setTitleColor:setting.titleNormalColor forState:UIControlStateNormal];
@@ -63,15 +65,15 @@
 - (void)yh_setAnimationWithItemStatus:(YHSegmentItemStatus)status absRatio:(CGFloat)absRatio transScale:(CGFloat)transScale{
     NSString *normalFontName = self.setting.titleNormalFont.fontName;
     NSString *selectedFontName = self.setting.titleSelectFont.fontName;
-    CGFloat normalSize = self.setting.titleNormalFont.pointSize;
+  //  CGFloat normalSize = self.setting.titleNormalFont.pointSize;
     CGFloat selectedSize = self.setting.titleSelectFont.pointSize;
     
     
     switch (status) {
         case YHSegmentItemStatusNormal:
         {
-            switch (_model.ItemType) {
-                case BBUISlideMenuItemTypeText:
+            switch (_setting.itemContentType) {
+                case YHItemContentTypeText:
                 {
                     UIFont *normalFont = [UIFont fontWithName:normalFontName size:selectedSize];
                     self.itemBtn.titleLabel.font = normalFont;
@@ -79,7 +81,7 @@
                     self.itemBtn.transform = currentTransform;
                 }
                     break;
-                case BBUISlideMenuItemTypeImage:
+                case YHItemContentTypeImageText:
                 {
                     
                 }
@@ -94,8 +96,8 @@
             break;
         case YHSegmentItemStatusSelected:
         {
-            switch (_model.ItemType) {
-                case BBUISlideMenuItemTypeText:
+            switch (_setting.itemContentType) {
+                case YHItemContentTypeText:
                 {
                     UIFont *selectedFont = [UIFont fontWithName:selectedFontName size:selectedSize];
                     self.itemBtn.titleLabel.font = selectedFont;
@@ -103,7 +105,7 @@
                     self.itemBtn.transform = currentTransform;
                 }
                     break;
-                case BBUISlideMenuItemTypeImage:
+                case YHItemContentTypeImageText:
                 {
                     
                 }

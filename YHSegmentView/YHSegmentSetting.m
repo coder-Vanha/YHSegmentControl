@@ -15,7 +15,6 @@
 + (YHSegmentItmeModel *)itemWithTitle:(NSString *)title
 {
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.ItemType = BBUISlideMenuItemTypeText;
     item.title = title;
     item.badgeDotColor = [UIColor redColor];
     return item;
@@ -24,7 +23,6 @@
 + (YHSegmentItmeModel *)itemWithImage:(UIImage *)image
 {
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.ItemType = BBUISlideMenuItemTypeImage;
     item.image = image;
     item.badgeDotColor = [UIColor redColor];
     return item;
@@ -33,7 +31,6 @@
 + (YHSegmentItmeModel *)itemWithImageURL:(NSString *)imageURL
 {
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.ItemType = BBUISlideMenuItemTypeImage;
     item.imageURL = imageURL;
     item.badgeDotColor = [UIColor redColor];
     [item loadWebImage];
@@ -49,7 +46,6 @@
         for (NSInteger i=0; i<titles.count; i++)
         {
             YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-            item.ItemType = BBUISlideMenuItemTypeText;
             item.title = [titles objectAtIndex:i];
             item.badgeDotColor = [UIColor redColor];
             [array addObject: item];
@@ -91,7 +87,6 @@
 
 + (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor normalFont:(UIFont *)normalFont selectedFont:(UIFont *)selectedFont height:(CGFloat)height insets:(UIEdgeInsets)insets{
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.ItemType = BBUISlideMenuItemTypeText;
     item.badgeDotColor = [UIColor redColor];
     item.title = title;
     [item loadWebImage];
@@ -117,6 +112,25 @@
     return item;
 }
 
++ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title setting:(YHSegmentSetting *)setting {
+    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
+    item.badgeDotColor = [UIColor redColor];
+    item.title = title;
+    [item loadWebImage];
+    
+    if (title.length > 0 && setting.titleNormalColor && setting.titleSelectColor && setting.titleNormalFont && setting.titleSelectFont) {
+        
+        CGSize titleSize = CGSizeZero;
+        titleSize = [title boundingRectWithSize:CGSizeMake(MAXFLOAT, setting.menuHeight) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : setting.titleSelectFont} context:nil].size;
+        
+        if (titleSize.width > 0) {
+            item.itemSize = CGSizeMake(titleSize.width + setting.itemInsets.left + setting.itemInsets.right, setting.menuHeight + setting.itemInsets.top + setting.itemInsets.bottom);
+        }
+    }
+    
+    return item;
+}
+
 @end
 
 
@@ -126,11 +140,12 @@
 {
     YHSegmentSetting *setting = [YHSegmentSetting new];
     
-    setting.MenuViewWidth = [UIScreen mainScreen].bounds.size.width;
-   
+    setting.menuHeight = 44;
+    
     setting.titleNormalColor = YH_RGBA(135,138,153,1);
     setting.titleSelectColor = YH_RGBA(34,34,34,1);
     
+    setting.indicatorStyle = YHIndictorStyleAlignToTitle;
     setting.indicatorBgColor = [UIColor blackColor];
     setting.indicatorStartPoint = CGPointMake(0, 0.5);
     setting.indicatorEndPoint = CGPointMake(1, 0.5);
@@ -142,7 +157,6 @@
     setting.indicatorSize = CGSizeMake(14, 4);
  
     setting.backgroundNormalColor = YH_RGBA(255,255,255,1);
-    setting.backgroundTopColor = YH_RGBA(255,255,255,1);
 
     setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
@@ -155,6 +169,7 @@
     
     return setting;
 }
+
 
 
 @end

@@ -16,7 +16,6 @@
 <
 UICollectionViewDataSource,
 UICollectionViewDelegate,
-//UIScrollViewDelegate,
 UICollectionViewDelegateFlowLayout
 >
 
@@ -27,6 +26,15 @@ UICollectionViewDelegateFlowLayout
 @property (nonatomic, weak) id<YHSegmentControlDelegate> delegate;
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) NSInteger selectedIndex;
+
+@property (nonatomic, assign) NSInteger leftIndex;
+@property (nonatomic, assign) NSInteger rightIndex;
+@property (nonatomic, strong) YHSegmentItem *leftItem;
+@property (nonatomic, strong) YHSegmentItem *rightItem;
+
+@property (nonatomic, assign) CGFloat leftIndicatorWidth;
+@property (nonatomic, assign) CGFloat rightIndicatorWidth;
+
 @property (nonatomic, strong) YHSegmentSetting *setting;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSTimeInterval progress;
@@ -45,7 +53,7 @@ UICollectionViewDelegateFlowLayout
     YHSegmentControl *segmentControl = [YHSegmentControl new];
     segmentControl.pageScrollView = pageScrollView;
     [segmentControl yh_reloadDataWithSetting:setting models:models];
-
+   // segmentControl.currentIndicatorWidth = setting.indicatorSize.width;
     segmentControl.delegate = delegate;
     [segmentControl.titleBarColView reloadData];
     
@@ -171,8 +179,14 @@ UICollectionViewDelegateFlowLayout
     } else {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
         UICollectionViewCell *item = [self.titleBarColView cellForItemAtIndexPath:indexPath];
-        self.indicator.width = self.setting.indicatorSize.width;
-        self.indicator.x = item.origin.x  + item.width/2.0 - self.setting.indicatorSize.width/2.0;
+        
+        CGFloat indicatorWidth = self.setting.indicatorSize.width;
+        if (self.setting.indicatorStyle == YHIndictorStyleAlignToTitle ) {
+            indicatorWidth = [self getTitleWidthWithIndex:index];
+        }
+        self.indicator.width = indicatorWidth;
+        self.indicator.centerX = item.centerX;
+        
     }
 
 
@@ -196,11 +210,16 @@ UICollectionViewDelegateFlowLayout
     [self scrollIndicatorWithPriorIndex:self.currentIndex nextIndex:self.selectedIndex absRatio:percent];
 }
 
+- (CGFloat)getTitleWidthWithIndex:(NSInteger)index {
+    if (index < 0 || index >= self.dataSources.count) return self.setting.indicatorSize.width;
+    YHSegmentItmeModel * model = [self.dataSources objectAtIndex:index];
+    return model.itemSize.width - self.setting.itemInsets.left -  self.setting.itemInsets.right - 8;
+}
 
 - (void)yh_scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!_isClickAction) {
-         CGFloat ratio = scrollView.contentOffset.x / scrollView.width;
-        [self scrollIndicatorWithRatio:ratio];
+        CGFloat ratio = scrollView.contentOffset.x / scrollView.width;
+        [self scrollIndicatorByPageContentOffsetWithRatio:ratio];
     }
 }
 
@@ -226,13 +245,17 @@ UICollectionViewDelegateFlowLayout
     YHSegmentItem *nextItem = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:nextIndex inSection:0]];
     
     CGFloat indicatorWidth = self.setting.indicatorSize.width;
+    if (self.setting.indicatorStyle == YHIndictorStyleAlignToTitle ) {
+        indicatorWidth = [self getTitleWidthWithIndex:nextIndex];
+    }
+    
     if (nextItem) {
         [UIView animateWithDuration:0.3 animations:^{
-            CGFloat x = nextItem.left + nextItem.width/2.0 - indicatorWidth/2.0;
-            self.indicator.left = x;
+          //  CGFloat x = nextItem.left + nextItem.width/2.0 - indicatorWidth/2.0;
+            self.indicator.centerX = nextItem.centerX;
             self.indicator.width = indicatorWidth;
         }];
-
+        
     }
     
     CGFloat baseScale = self.setting.BaseScale;
@@ -253,63 +276,125 @@ UICollectionViewDelegateFlowLayout
 }
 
 
-- (void)scrollIndicatorWithRatio:(CGFloat)ratio {
+- (void)scrollIndicatorByPageContentOffsetWithRatio:(CGFloat)ratio {
     if (ratio < 0 || ratio > self.dataSources.count - 1) return;
-
-       NSInteger leftNodeIndex = floor(ratio);
-       NSInteger rightNodeIndex = ceil(ratio);
     
-       // 优化
-       YHSegmentItem *leftItem = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftNodeIndex inSection:0]];
-       YHSegmentItem *rightItem = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightNodeIndex inSection:0]];
+    NSInteger leftNodeIndex = floor(ratio);
+    NSInteger rightNodeIndex = ceil(ratio);
+    
+    if(leftNodeIndex != _leftIndex || !_leftItem) {
+        _leftIndex = leftNodeIndex;
+        self.leftItem = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftNodeIndex inSection:0]];
+    }
+    
+    if (rightNodeIndex != _rightIndex || !_rightItem) {
+        _rightIndex = rightNodeIndex;
+        self.rightItem = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightNodeIndex inSection:0]];
+    }
+    
+    switch (self.setting.indicatorStyle) {
+        case YHIndictorStyleLeap:
+        {
+           
+            CGFloat indicatorWidth = self.setting.indicatorSize.width;
 
-       CGFloat indicatorWidth = self.setting.indicatorSize.width;
+            if (ratio == leftNodeIndex && _leftItem) {
+                CGFloat left = _leftItem.left + _leftItem.width/2.0 - indicatorWidth/2.0;
+                self.indicator.left = left;
+                self.indicator.width = indicatorWidth;
+            } else if (ratio == rightNodeIndex && _rightItem) {
 
+                CGFloat left = _rightItem.left + _rightItem.width/2.0 - indicatorWidth/2.0;
+                self.indicator.left = left;
+                self.indicator.width = indicatorWidth;
+            } else {
+                if (_leftItem && _rightItem) {
+                    CGFloat absRatio = ratio - leftNodeIndex;
+                    CGFloat leftItemCenterX = _leftItem.centerX;
+                    CGFloat rightItemCenterX = _rightItem.centerX;
 
-       if (ratio == leftNodeIndex && leftItem) {
-           CGFloat left = leftItem.left + leftItem.width/2.0 - indicatorWidth/2.0;
-           self.indicator.left = left;
-           self.indicator.width = indicatorWidth;
-       } else if (ratio == rightNodeIndex && rightItem) {
+                    if (absRatio < 0.5) {
+                        CGFloat x = leftItemCenterX - indicatorWidth/2.0 *(1- absRatio/0.5);
+                        CGFloat width = indicatorWidth/2.0 *(1- absRatio/0.5) + indicatorWidth/2.0 + absRatio/0.5 *(rightItemCenterX - leftItemCenterX - indicatorWidth/2.0);
 
-           CGFloat left = rightItem.left + rightItem.width/2.0 - indicatorWidth/2.0;
-           self.indicator.left = left;
-           self.indicator.width = indicatorWidth;
-       } else {
-           if (leftItem && rightItem) {
-               CGFloat absRatio = ratio - leftNodeIndex;
-               CGFloat leftItemCenterX = leftItem.centerX;
-               CGFloat rightItemCenterX = rightItem.centerX;
+                        self.indicator.left = x;
+                        self.indicator.width = width;
 
-               if (absRatio < 0.5) {
-                   CGFloat x = leftItemCenterX - indicatorWidth/2.0 *(1- absRatio/0.5);
-                   CGFloat width = indicatorWidth/2.0 *(1- absRatio/0.5) + indicatorWidth/2.0 + absRatio/0.5 *(rightItemCenterX - leftItemCenterX - indicatorWidth/2.0);
+                    } else if (absRatio == 0.5) {
+                        CGFloat x = _leftItem.left + _leftItem.width/2.0 ;
+                        CGFloat width = rightItemCenterX - leftItemCenterX;
 
-                   self.indicator.left = x;
-                   self.indicator.width = width;
+                        self.indicator.left = x;
+                        self.indicator.width = width;
 
-               } else if (absRatio == 0.5) {
-                   CGFloat x = leftItem.left + leftItem.width/2.0 ;
-                   CGFloat width = rightItemCenterX - leftItemCenterX;
+                    } else {
+                        CGFloat x = leftItemCenterX + (rightItemCenterX - leftItemCenterX - indicatorWidth/2.0) * (absRatio-0.5)/0.5;
+                        CGFloat width = rightItemCenterX - x + indicatorWidth/2.0 * (absRatio-0.5)/0.5;
 
-                   self.indicator.left = x;
-                   self.indicator.width = width;
+                        self.indicator.left = x;
+                        self.indicator.width = width;
+                    }
+                }
+            }
 
-               } else {
-                   CGFloat x = leftItemCenterX + (rightItemCenterX - leftItemCenterX - indicatorWidth/2.0) * (absRatio-0.5)/0.5;
-                   CGFloat width = rightItemCenterX - x + indicatorWidth/2.0 * (absRatio-0.5)/0.5;
+        }
+            break;
+        case YHIndictorStyleAlignToTitle:
+        {
+            if (_leftItem && _rightItem) {
+                CGFloat absRatio = ratio - leftNodeIndex;
+                CGFloat leftTitleWidth = [self getTitleWidthWithIndex:_leftIndex];
+                CGFloat rightTitleWidth = [self getTitleWidthWithIndex:_rightIndex];
+                
+                CGFloat indicatorCenterX = _leftItem.centerX + (_rightItem.centerX - _leftItem.centerX) * absRatio;
+                self.indicator.centerX = indicatorCenterX;
+                
+                CGFloat indicatorWidth = leftTitleWidth  + (rightTitleWidth - leftTitleWidth) * absRatio;
+                self.indicator.width = indicatorWidth;
+            }
 
-                   self.indicator.left = x;
-                   self.indicator.width = width;
-               }
-           }
-       }
+        }
+            break;
+        case YHIndictorStyleNature:
+        {
+            if (_leftItem && _rightItem) {
+                CGFloat absRatio = ratio - leftNodeIndex;
+                CGFloat indicatorWidth = self.setting.indicatorSize.width;
+                CGFloat indicatorCenterX = _leftItem.centerX + (_rightItem.centerX - _leftItem.centerX) * absRatio;
+                self.indicator.centerX = indicatorCenterX;
+                self.indicator.width = indicatorWidth;
+            }
+        }
+            break;
 
-       [self setTitleAnimationWithLeftItem:leftItem rightItem:rightItem leftNodeIndex:leftNodeIndex rightNodeIndex:rightNodeIndex ratio:ratio];
+        default:
+
+            break;
+    }
+
+    
+     [self changeTitleStatus:_leftItem rightItem:_rightItem leftNodeIndex:leftNodeIndex rightNodeIndex:rightNodeIndex ratio:ratio];
+    
 }
 
 
-- (void)setTitleAnimationWithLeftItem:(YHSegmentItem *)leftItem rightItem:(YHSegmentItem *)rightItem leftNodeIndex:(NSInteger)leftNodeIndex rightNodeIndex:(NSInteger)rightNodeIndex ratio:(CGFloat)ratio {
+- (NSInteger)getSeletedIndexWithRatio:(CGFloat)ratio {
+     NSInteger leftNodeIndex = floor(ratio);
+     CGFloat absRatio = ratio - leftNodeIndex;
+    if (absRatio < 0.5) {
+        return leftNodeIndex;
+    } else {
+        return ceilf(ratio);
+    }
+}
+
+- (YHSegmentItem *)getVisiableItemWithIndex:(NSInteger)index {
+    YHSegmentItem *item = (YHSegmentItem *)[self.titleBarColView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    return item;
+}
+
+
+- (void)changeTitleStatus:(YHSegmentItem *)leftItem rightItem:(YHSegmentItem *)rightItem leftNodeIndex:(NSInteger)leftNodeIndex rightNodeIndex:(NSInteger)rightNodeIndex ratio:(CGFloat)ratio {
     
     CGFloat absRatio = ratio - leftNodeIndex;
     

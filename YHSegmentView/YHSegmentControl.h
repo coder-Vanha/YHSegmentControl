@@ -8,21 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "YHSegmentSetting.h"
 
-typedef NS_ENUM(NSInteger , YHIndictorStyle) {
-    YHIndictorStyleDefault        =  1 << 0, // 给定宽度，跳跃滑动
-    YHIndictorStyleAlignToTitle   =  1 << 1, // 宽度与文字平齐，自然滑动
-    YHIndictorStyleNature         =  1 << 2, // 给定宽度， 自然滑动
-};
-
-typedef NS_ENUM(NSInteger , YHItemStyle) {
-    YHItemStyleDefault            =  1 << 0, // 直接切换文字
-    YHItemStyleSmoothness         =  1 << 1, // 渐变切换文字
-};
-
-typedef NS_ENUM(NSInteger , YHItemContentType) {
-    YHItemContentTypeText         =  1 << 0, // 纯文字
-    YHItemContentTypeImageText    =  1 << 1, // 图文
-};
 
 NS_ASSUME_NONNULL_BEGIN
 

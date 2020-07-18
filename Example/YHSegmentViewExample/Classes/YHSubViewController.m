@@ -1,12 +1,12 @@
 //
-//  YHHorizontalLinkageVC.m
+//  YHSubViewController.m
 //  YHSegmentViewExample
 //
-//  Created by Vanha on 2020/7/14.
+//  Created by Vanha on 2020/7/18.
 //  Copyright © 2020 wanwan. All rights reserved.
 //
 
-#import "YHHorizontalLinkageVC.h"
+#import "YHSubViewController.h"
 #import "YHSegmentControl.h"
 #import "YHTableViewListView.h"
 #import "YHSegmentViewConstant.h"
@@ -36,9 +36,8 @@
 
 
 
-
-// MARK -- YHHorizontalLinkageVC
-@interface YHHorizontalLinkageVC ()
+// MARK -- YHSubViewController
+@interface YHSubViewController ()
 <
 UICollectionViewDataSource,
 UICollectionViewDelegate,
@@ -51,9 +50,9 @@ YHSegmentControlDelegate
 
 @end
 
-static CGFloat currentIndex = 0;
+//static CGFloat currentIndex = 0;
 
-@implementation YHHorizontalLinkageVC
+@implementation YHSubViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,33 +77,19 @@ static CGFloat currentIndex = 0;
     
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    NSMutableArray *vcMutArr = [NSMutableArray array];
-   // NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影"];
-    
-     NSArray *titleArr = @[@"精选",@"2018世界杯",@"明日之子",@"电影",@"电视剧",@"NBA",@"花样年华",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育",@"体育",@"电视剧",@"NBA",@"花样年华",@"体育"];
-    NSMutableArray *titleModels4NewUI = [NSMutableArray array];
+   
+    NSArray *titleArr = @[@"关注",@"2020推荐",@"精选",@"抗击疫情",@"小视频",@"电影",@"电视剧",@"NBA",@"体育"];
+    NSMutableArray *titleModels = [NSMutableArray array];
     
     for (int i = 0; i < titleArr.count; i++) {
-          
-        YHSegmentItmeModel *model = [YHSegmentItmeModel itmeModelWithTitle:titleArr[i] normalColor:[UIColor blackColor] selectedColor:[UIColor orangeColor] normalFont:[UIFont systemFontOfSize:13] selectedFont:[UIFont boldSystemFontOfSize:16] height:40 insets:UIEdgeInsetsMake(0, 8, 0, 8)];
-        [titleModels4NewUI addObject:model];
-        
+        YHSegmentItmeModel *model = [YHSegmentItmeModel itmeModelWithTitle:titleArr[i] setting:_setting];
+        [titleModels addObject:model];
     }
     
-    self.dataSource = [titleModels4NewUI copy];
+    self.dataSource = [titleModels copy];
     containerView.contentSize = CGSizeMake(titleArr.count * CGRectGetWidth(containerView.frame), CGRectGetHeight(containerView.frame));
     
-    YHSegmentSetting *setting = [YHSegmentSetting defaultSetting];
-    setting.titleNormalColor = YH_RGB(111,111,111);
-    setting.titleSelectColor = YH_RGB(0,0,0);
-    setting.backgroundNormalColor = YH_RGB(247,247,247);
-//    setting.progressLeftColor = [UIColor orangeColor];
-//    setting.progressRightColor = [UIColor redColor];
-    setting.backgroundTopColor = [UIColor whiteColor];
-    setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size: 16];
-    setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 18];
-    setting.imageNormalWidth = 64.0 * 0.95;
-    setting.imageMaxWidth = 64;
+  
     
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.backgroundColor = [UIColor greenColor];
@@ -113,7 +98,7 @@ static CGFloat currentIndex = 0;
     
 
 
-    YHSegmentControl *segmentControl = [YHSegmentControl yh_segmentControlWithModels:titleModels4NewUI setting:setting currentSelectIndex:0 pageScrollView:containerView delegate:self];
+    YHSegmentControl *segmentControl = [YHSegmentControl yh_segmentControlWithModels:titleModels setting:_setting currentSelectIndex:0 pageScrollView:containerView delegate:self];
     segmentControl.frame = CGRectMake(0, 60, 340, 44);
     segmentControl.backgroundColor = [UIColor greenColor];
     _segmentViewControl = segmentControl;
