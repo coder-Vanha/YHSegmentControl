@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"YHSegmentView";
+    self.title = @"YHSegmentControl";
 
     self.titleArr = @[@"Text + SlidingLeap 文本 + 跳跃滑动",
                       @"Text + SlidingAlign 文本 + 宽度与文字平齐",

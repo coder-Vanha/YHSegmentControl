@@ -28,7 +28,6 @@ currentSelectIndex:(NSInteger)index
 
 - (void)yh_reloadDataWithSetting:(YHSegmentSetting *)setting models:(NSArray<YHSegmentItmeModel *> *)models;
 - (void)yh_reloadDataWithModels:(NSArray<YHSegmentItmeModel *> *)models;
-- (void)yh_setDefaultSelectedIndex:(NSInteger)index models:(NSArray<YHSegmentItmeModel *> *)models;
 
 // By call this method to achieve linkage effect
 - (void)yh_scrollViewDidScroll:(UIScrollView *)scrollView;

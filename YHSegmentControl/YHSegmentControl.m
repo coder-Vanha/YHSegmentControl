@@ -72,7 +72,7 @@ UICollectionViewDelegateFlowLayout
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 1;
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+       //   flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
         self.flowLayout = flowLayout;
         
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
@@ -121,9 +121,6 @@ UICollectionViewDelegateFlowLayout
     
 }
 
-- (void)yh_segmentPageDidSelectedIndex:(NSInteger)index {
-
-}
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
