@@ -36,7 +36,8 @@
     self.layer.cornerRadius = setting.indicatorSize.height /2;
     
     if (setting.indicatorColors.count > 0 && setting.indicatorLocations.count > 0) {
-        _gradientLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,  setting.indicatorSize.height);
+        
+        _gradientLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width/2,  setting.indicatorSize.height);
         _gradientLayer.startPoint = setting.indicatorStartPoint;
         _gradientLayer.endPoint = setting.indicatorEndPoint;
         _gradientLayer.locations = setting.indicatorLocations;

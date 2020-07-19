@@ -8,7 +8,6 @@
 
 #import "YHSegmentSetting.h"
 #import "SDWebImageDownloader.h"
-#import "YHSegmentViewConstant.h"
 
 @implementation YHSegmentItmeModel
 
@@ -142,21 +141,21 @@
     setting.itemContentType = YHItemContentTypeText;
     setting.menuHeight = 44;
     
-    setting.titleNormalColor = YH_RGBA(135,138,153,1);
-    setting.titleSelectColor = YH_RGBA(34,34,34,1);
+    setting.titleNormalColor = [UIColor blackColor]; //YH_RGBA(135,138,153,1);
+    setting.titleSelectColor = [UIColor orangeColor];//YH_RGBA(34,34,34,1);
     
     setting.indicatorStyle = YHIndictorStyleAlignToTitle;
     setting.indicatorBgColor = [UIColor blackColor];
     setting.indicatorStartPoint = CGPointMake(0, 0.5);
     setting.indicatorEndPoint = CGPointMake(1, 0.5);
     setting.indicatorLocations = @[@(0.0f), @(1.0f)];
-    setting.indicatorColors = @[(__bridge id)YH_RGBA(255, 151, 135, 1).CGColor,
-                     (__bridge id)YH_RGBA(255, 128, 112, 1).CGColor];
+    setting.indicatorColors = @[(__bridge id)[UIColor orangeColor].CGColor,
+                     (__bridge id)[UIColor redColor].CGColor];
     
     setting.indicatorTop = 35;
     setting.indicatorSize = CGSizeMake(14, 4);
  
-    setting.backgroundNormalColor = YH_RGBA(255,255,255,1);
+   // setting.backgroundNormalColor = YH_RGBA(255,255,255,1);
 
     setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size:18];

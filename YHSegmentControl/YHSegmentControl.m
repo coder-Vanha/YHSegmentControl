@@ -187,8 +187,6 @@ UICollectionViewDelegateFlowLayout
         self.indicator.width = indicatorWidth;
         self.indicator.centerX = item.centerX;
         [self scrollIndicatorWithPriorIndex:index nextIndex:index absRatio:1];
-//        [item yh_changeTitleColorFromColor:self.setting.titleNormalColor toColor:self.setting.titleSelectColor percent:absRatio];
-//        [item yh_setAnimationWithItemStatus:YHSegmentItemStatusSelected absRatio:absRatio transScale:baseScale*toSelectedScale];
     }
 
 
@@ -215,7 +213,7 @@ UICollectionViewDelegateFlowLayout
 - (CGFloat)getTitleWidthWithIndex:(NSInteger)index {
     if (index < 0 || index >= self.dataSources.count) return self.setting.indicatorSize.width;
     YHSegmentItmeModel * model = [self.dataSources objectAtIndex:index];
-    return model.itemSize.width - self.setting.itemInsets.left -  self.setting.itemInsets.right - 8;
+    return model.itemSize.width - self.setting.itemInsets.left -  self.setting.itemInsets.right;
 }
 
 - (void)yh_scrollViewDidScroll:(UIScrollView *)scrollView {

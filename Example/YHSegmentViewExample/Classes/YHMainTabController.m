@@ -8,7 +8,6 @@
 
 #import "YHMainTabController.h"
 #import "YHSubViewController.h"
-#import "YHSegmentViewConstant.h"
 
 @interface YHMainTabController ()
 @property (nonatomic, copy) NSArray <NSString *>*titleArr;
@@ -57,9 +56,9 @@
     
     YHSegmentSetting *setting = [YHSegmentSetting defaultSetting];
     setting.itemInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    setting.titleNormalColor = YH_RGB(111,111,111);
-    setting.titleSelectColor = YH_RGB(0,0,0);
-    setting.backgroundNormalColor = YH_RGB(247,247,247);
+//    setting.titleNormalColor = YH_RGB(111,111,111);
+//    setting.titleSelectColor = YH_RGB(0,0,0);
+//    setting.backgroundNormalColor = YH_RGB(247,247,247);
     setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size: 16];
     setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 18];
     setting.imageNormalWidth = 64.0 * 0.95;
