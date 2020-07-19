@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 
 
-## YHSegmentView
+## YHSegmentControl
 
 MIT License
 

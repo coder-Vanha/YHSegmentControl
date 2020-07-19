@@ -4,7 +4,7 @@ platform :ios, '9.0'
 
 target 'YHSegmentViewExample' do
 
-   pod 'YHSegmentView', :path => '../YHSegmentView.podspec'
+   pod 'YHSegmentControl', :path => '../YHSegmentControl.podspec'
 
    pod 'SDWebImage'
 

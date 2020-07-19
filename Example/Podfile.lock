@@ -2,25 +2,25 @@ PODS:
   - SDWebImage (5.8.3):
     - SDWebImage/Core (= 5.8.3)
   - SDWebImage/Core (5.8.3)
-  - YHSegmentView (0.0.2):
+  - YHSegmentControl (0.0.2):
     - SDWebImage
 
 DEPENDENCIES:
   - SDWebImage
-  - YHSegmentView (from `../YHSegmentView.podspec`)
+  - YHSegmentControl (from `../YHSegmentControl.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SDWebImage
 
 EXTERNAL SOURCES:
-  YHSegmentView:
-    :path: "../YHSegmentView.podspec"
+  YHSegmentControl:
+    :path: "../YHSegmentControl.podspec"
 
 SPEC CHECKSUMS:
   SDWebImage: 112503ec94a5a2a41869503844a15e8d8f1ead5c
-  YHSegmentView: f45f070c1a4a5aed47fe79520c74f607e45356de
+  YHSegmentControl: c7520e2bbb20b397fa325544e6bba9f416e6d22f
 
-PODFILE CHECKSUM: beffe26d3f095597f790e2a9c6f246932b11663b
+PODFILE CHECKSUM: 16980a361250963fd7c2a3c3a305327200b9ebef
 
 COCOAPODS: 1.7.5
