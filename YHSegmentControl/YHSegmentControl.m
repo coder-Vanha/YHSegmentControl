@@ -91,11 +91,7 @@ UICollectionViewDelegateFlowLayout
         self.indicator = indicator;
         
         [collectionView bringSubviewToFront:indicator];
-       
-
-        // 测试颜色
-        collectionView.backgroundColor = [UIColor grayColor];
-        self.backgroundColor = [UIColor greenColor];
+        collectionView.backgroundColor = [UIColor whiteColor];
         
     }
     return self;

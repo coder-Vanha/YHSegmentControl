@@ -63,7 +63,7 @@ YHSegmentControlDelegate
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width, 300);
     
-    UICollectionView *containerView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 120, self.view.bounds.size.width, 300) collectionViewLayout:flowLayout];
+    UICollectionView *containerView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 83+44, self.view.bounds.size.width, 300) collectionViewLayout:flowLayout];
     [containerView registerClass:[YHSegmentPageItem class] forCellWithReuseIdentifier:@"YHSegmentPageItemCellID"];
     containerView.dataSource = self;
     containerView.delegate = self;
@@ -90,7 +90,7 @@ YHSegmentControlDelegate
 
 
     YHSegmentControl *segmentControl = [YHSegmentControl yh_segmentControlWithModels:self.dataSource setting:_setting currentSelectIndex:0 pageScrollView:containerView delegate:self];
-    segmentControl.frame = CGRectMake(0, 60, 340, 44);
+    segmentControl.frame = CGRectMake(0, 83, self.view.bounds.size.width, 44);
     segmentControl.backgroundColor = [UIColor greenColor];
     _segmentViewControl = segmentControl;
     
