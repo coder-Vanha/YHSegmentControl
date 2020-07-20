@@ -53,7 +53,6 @@ UICollectionViewDelegateFlowLayout
     YHSegmentControl *segmentControl = [YHSegmentControl new];
     segmentControl.pageScrollView = pageScrollView;
     [segmentControl yh_reloadDataWithSetting:setting models:models];
-   // segmentControl.currentIndicatorWidth = setting.indicatorSize.width;
     segmentControl.delegate = delegate;
     [segmentControl.titleBarColView reloadData];
     

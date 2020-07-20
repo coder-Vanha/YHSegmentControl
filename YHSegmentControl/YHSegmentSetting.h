@@ -18,7 +18,6 @@ typedef NS_ENUM(NSInteger , YHIndictorStyle) {
     YHIndictorStyleNature         =  1 << 2, // 给定宽度， 自然滑动
 };
 
-
 typedef NS_ENUM(NSInteger , YHItemContentType) {
     YHItemContentTypeText         =  1 << 0, // 纯文字
     YHItemContentTypeImageText    =  1 << 1, // 图文
@@ -30,42 +29,27 @@ typedef NS_ENUM(NSInteger , YHItemContentType) {
 
 @property (nonatomic, strong)   UIImage     * image;
 @property (nonatomic, copy)     NSString    * imageURL;
-@property (nonatomic, copy)     NSString    * imageWidth;
-@property (nonatomic, copy)     NSString    * imageHeight;
-
 @property (nonatomic, strong)   UIImage     * selectedImage;
 @property (nonatomic, copy)     NSString    * selectedImageURL;
-@property (nonatomic, copy)     NSString    * selectedImageWidth;
-@property (nonatomic, copy)     NSString    * selectedImageHeight;
 
-@property (nonatomic, assign)   BOOL        showBadge;
+@property (nonatomic, assign)   BOOL          showBadge;
 @property (nonatomic, strong)   UIColor     * badgeDotColor;
-@property (nonatomic, assign)   CGSize        dotSize;
+@property (nonatomic, assign)   CGSize        badgeSize;
+@property (nonatomic, assign)   UIEdgeInsets  badgeInsets;
 @property (nonatomic, copy)     NSString    * badgeURL;
-
 
 @property (nonatomic, assign)   CGSize      itemSize;
 
-@property (nonatomic, copy)   NSAttributedString  * titleNormalAttributedStri;
-@property (nonatomic, copy)   NSAttributedString  * titleSelectedAttributedStri;
-
-
-+ (YHSegmentItmeModel *)itemWithTitle:(NSString *)title;
-+ (YHSegmentItmeModel *)itemWithImage:(UIImage *)image;
-+ (YHSegmentItmeModel *)itemWithImageURL:(NSString *)imageURL;
-+ (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *) titles;
-
-//+ (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font height:(CGFloat)height;
-//
-//+ (NSAttributedString *)attributedStringWithString:(NSString *)string font:(UIFont *)font color:(UIColor *)color;
 
 + (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *) titles  setting:(YHSegmentSetting *)setting;
 
 + (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title setting:(YHSegmentSetting *)setting;
 
-+ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title selectedImage:(UIImage *)selectedImage setting:(YHSegmentSetting *)setting;
++ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title selectedImage:(UIImage *)selectedImage itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting;
 
-+ (YHSegmentItmeModel *)itmeModelWithImage:(UIImage *)image selectedImage:(UIImage *)selectedImage setting:(YHSegmentSetting *)setting;
++ (YHSegmentItmeModel *)itmeModelWithImage:(UIImage *)image selectedImage:(UIImage *)selectedImage itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting;
+
++ (YHSegmentItmeModel *)itmeModelWithImageURL:(NSString *)imageURL selectedImageURL:(NSString *)selectedImageURL itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting;
 
 
 @end
@@ -73,8 +57,8 @@ typedef NS_ENUM(NSInteger , YHItemContentType) {
 @interface YHSegmentSetting : NSObject
 
 // for menuView
-
-@property (nonatomic, strong) UIColor   * backgroundNormalColor;
+@property (nonatomic, strong) UIColor   * backgroundColor;
+// require a value to caculate text itemSize
 @property (nonatomic, assign) CGFloat     menuHeight;
 
 // for item

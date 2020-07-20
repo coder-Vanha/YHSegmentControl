@@ -11,112 +11,25 @@
 
 @implementation YHSegmentItmeModel
 
-+ (YHSegmentItmeModel *)itemWithTitle:(NSString *)title
-{
-    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.title = title;
-    item.badgeDotColor = [UIColor redColor];
-    return item;
-}
-
-+ (YHSegmentItmeModel *)itemWithImage:(UIImage *)image
-{
-    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.image = image;
-    item.badgeDotColor = [UIColor redColor];
-    return item;
-}
-
-+ (YHSegmentItmeModel *)itemWithImageURL:(NSString *)imageURL
-{
-    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.imageURL = imageURL;
-    item.badgeDotColor = [UIColor redColor];
-    [item loadWebImage];
-    return item;
-}
-
-+ (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *) titles
-{
++ (NSArray<YHSegmentItmeModel *> *)itemsWithTitles:(NSArray<NSString *> *)titles setting:(YHSegmentSetting *)setting {
     NSMutableArray *array;
-    if (titles.count > 0)
-    {
+    if (titles.count > 0) {
         array = [NSMutableArray array];
-        for (NSInteger i=0; i<titles.count; i++)
-        {
-            YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-            item.title = [titles objectAtIndex:i];
-            item.badgeDotColor = [UIColor redColor];
+        for (NSInteger i=0; i<titles.count; i++){
+            YHSegmentItmeModel *item = [self itmeModelWithTitle:titles[i] setting:setting];
             [array addObject: item];
         }
     }
-
+    
     return array;
-}
-
-- (void)loadWebImage
-{
-    if (!self.image)
-    {
-        __weak __typeof (self) weakSelf = self;
-        
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:self.imageURL] options:SDWebImageDownloaderContinueInBackground  progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-            __strong __typeof (weakSelf) strongSelf = weakSelf;
-            if (!error && image && finished)
-            {
-                strongSelf.image = image;
-            }
-        }];
-        
-        
-    }
-}
-
-+ (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font height:(CGFloat)height {
-    CGSize size = CGSizeZero;
     
-    if (string.length > 0 && font) {
-        size = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSAttachmentAttributeName : font} context:nil].size;
-    }
-    
-    return size;
-    
-}
-
-
-+ (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor normalFont:(UIFont *)normalFont selectedFont:(UIFont *)selectedFont height:(CGFloat)height insets:(UIEdgeInsets)insets{
-    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
-    item.badgeDotColor = [UIColor redColor];
-    item.title = title;
-    [item loadWebImage];
-    
-    if (title.length > 0 && normalColor && selectedColor && normalFont && selectedFont) {
-        NSMutableAttributedString *normalAttri = [[NSMutableAttributedString alloc] initWithString:title];
-        [normalAttri addAttributes:@{NSForegroundColorAttributeName : normalColor, NSFontAttributeName : normalFont} range:NSMakeRange(0, title.length)];
-        
-        NSMutableAttributedString *selectedAttri = [[NSMutableAttributedString alloc] initWithString:title];
-        [selectedAttri addAttributes:@{NSForegroundColorAttributeName : selectedColor, NSFontAttributeName : selectedFont} range:NSMakeRange(0, title.length)];
-        
-        item.titleNormalAttributedStri = normalAttri;
-        item.titleSelectedAttributedStri = selectedAttri;
-        
-        CGSize titleSize = CGSizeZero;
-        titleSize = [selectedAttri boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-        
-        if (titleSize.width > 0) {
-             item.itemSize = CGSizeMake(titleSize.width + insets.left + insets.right, height + insets.top + insets.bottom);
-        }
-    }
-    
-    return item;
 }
 
 + (YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title setting:(YHSegmentSetting *)setting {
     YHSegmentItmeModel *item = [YHSegmentItmeModel new];
     item.badgeDotColor = [UIColor redColor];
     item.title = title;
-   // [item loadWebImage];
-    
+  
     if (title.length > 0 && setting.titleNormalColor && setting.titleSelectColor && setting.titleNormalFont && setting.titleSelectFont) {
         
         CGSize titleSize = CGSizeZero;
@@ -130,6 +43,50 @@
     return item;
 }
 
++ (YHSegmentItmeModel *)itmeModelWithImage:(UIImage *)image selectedImage:(UIImage *)selectedImage itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting {
+    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
+    item.badgeDotColor = [UIColor redColor];
+    itemSize = itemSize;
+    item.image = image;
+    item.selectedImage = selectedImage;
+    return item;
+}
+
++ (YHSegmentItmeModel *)itmeModelWithImageURL:(NSString *)imageURL selectedImageURL:(NSString *)selectedImageURL itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting {
+    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
+    item.badgeDotColor = [UIColor redColor];
+    itemSize = itemSize;
+    
+    __weak __typeof (item) weakObjc = item;
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderContinueInBackground  progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+        __strong __typeof (weakObjc) strongObjc = weakObjc;
+        if (!error && image && finished)
+        {
+            strongObjc.image = image;
+        }
+    }];
+    
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:selectedImageURL] options:SDWebImageDownloaderContinueInBackground  progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+        __strong __typeof (weakObjc) strongObjc = weakObjc;
+        if (!error && image && finished)
+        {
+            strongObjc.selectedImage = image;
+        }
+    }];
+    
+    return item;
+}
+
+
++(YHSegmentItmeModel *)itmeModelWithTitle:(NSString *)title selectedImage:(UIImage *)selectedImage itemSize:(CGSize)itemSize setting:(YHSegmentSetting *)setting {
+    YHSegmentItmeModel *item = [YHSegmentItmeModel new];
+    item.badgeDotColor = [UIColor redColor];
+    itemSize = itemSize;
+    item.title = title;
+    item.selectedImage = selectedImage;
+    return item;
+}
+
 @end
 
 
@@ -138,11 +95,13 @@
 + (YHSegmentSetting *)defaultSetting
 {
     YHSegmentSetting *setting = [YHSegmentSetting new];
+     setting.backgroundColor = [UIColor whiteColor];
+    
     setting.itemContentType = YHItemContentTypeText;
     setting.menuHeight = 44;
     
-    setting.titleNormalColor = [UIColor blackColor]; //YH_RGBA(135,138,153,1);
-    setting.titleSelectColor = [UIColor orangeColor];//YH_RGBA(34,34,34,1);
+    setting.titleNormalColor = [UIColor blackColor];
+    setting.titleSelectColor = [UIColor orangeColor];
     
     setting.indicatorStyle = YHIndictorStyleAlignToTitle;
     setting.indicatorBgColor = [UIColor blackColor];
@@ -155,8 +114,6 @@
     setting.indicatorTop = 35;
     setting.indicatorSize = CGSizeMake(14, 4);
  
-   // setting.backgroundNormalColor = YH_RGBA(255,255,255,1);
-
     setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
     

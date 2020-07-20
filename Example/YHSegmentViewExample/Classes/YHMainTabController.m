@@ -24,7 +24,7 @@
                       @"Text + SlidingNature 文本 + 自然滑动",
                       @"Image&Text + SlidingLeap 图文+ 跳跃滑动",
                       @"Image&Text + SlidingNature 图文+ 自然滑动",
-                      @"Tips + SlidingNature 图文+ 自然滑动"
+                      @"Tips + SlidingNature 小红点+ 自然滑动"
     ];
 }
 
@@ -56,9 +56,6 @@
     
     YHSegmentSetting *setting = [YHSegmentSetting defaultSetting];
     setting.itemInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-//    setting.titleNormalColor = YH_RGB(111,111,111);
-//    setting.titleSelectColor = YH_RGB(0,0,0);
-//    setting.backgroundNormalColor = YH_RGB(247,247,247);
     setting.titleNormalFont =  [UIFont fontWithName:@"PingFangSC-Regular" size: 16];
     setting.titleSelectFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 18];
     setting.imageNormalWidth = 64.0 * 0.95;
@@ -114,7 +111,7 @@
 }
 
 - (NSArray *)getModelsWithSetting:(YHSegmentSetting *)setting row:(NSInteger)row{
-    NSArray *titleArr = @[@"关注",@"2020推荐",@"双十一抢先购",@"抗击疫情",@"小视频",@"电影",@"电视剧",@"NBA",@"体育"];
+    NSArray *titleArr = @[@"关注",@"2020热门",@"双十一抢先购",@"抗击疫情",@"小视频",@"电影",@"电视剧",@"NBA",@"体育"];
     NSMutableArray *titleModels = [NSMutableArray array];
     
     for (int i = 0; i < titleArr.count; i++) {
@@ -136,13 +133,15 @@
             if (i == 1) {
                 model.showBadge = YES;
                 model.badgeDotColor = [UIColor redColor];
-                model.dotSize = CGSizeMake(6, 6);
+                model.badgeSize = CGSizeMake(6, 6);
+                model.badgeInsets = UIEdgeInsetsMake(8, 0, 0, -10);
             }
             
             if (i == 2) {
                 model.showBadge = YES;
                 model.badgeURL = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595097377903&di=dbbd4dd87277da02b86e2d7f750b6b87&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F16%2F12%2F01%2F187c4d90056a425df880027b34704688.jpg";
-                model.dotSize = CGSizeMake(30, 20);
+                model.badgeSize = CGSizeMake(30, 20);
+                model.badgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
               
             }
         }

@@ -30,7 +30,6 @@
         [self.contentView addSubview:self.itemBtn];
         [self addSubview:self.tips];
         [self.layer addSublayer:self.redDot];
-        
     }
     return self;
 }
@@ -54,15 +53,15 @@
         if (itemModel.badgeURL.length > 0) {
             _tips.hidden = NO;
             _redDot.hidden = YES;
-            _tips.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.dotSize.width, 0, self.model.dotSize.width, self.model.dotSize.height);
+            _tips.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.badgeSize.width + itemModel.badgeInsets.right, itemModel.badgeInsets.top, self.model.badgeSize.width, self.model.badgeSize.height);
             [self.tips sd_setImageWithURL:[NSURL URLWithString:itemModel.badgeURL]];
             
             self.tips.backgroundColor = [UIColor redColor];
         } else {
             _tips.hidden = YES;
             _redDot.hidden = NO;
-            _redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-6, 6, self.model.dotSize.width, self.model.dotSize.height);
-            _redDot.cornerRadius = MIN(self.model.dotSize.width, self.model.dotSize.height)/2;
+            _redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.badgeSize.width+itemModel.badgeInsets.right, itemModel.badgeInsets.top, self.model.badgeSize.width, self.model.badgeSize.height);
+            _redDot.cornerRadius = MIN(self.model.badgeSize.width, self.model.badgeSize.height)/2;
         }
     } else {
         _redDot.hidden = YES;
@@ -252,10 +251,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-   // self.tips.frame = CGRectMake(CGRectGetWidth(self.frame)-self.model.dotSize.width, 6, self.model.dotSize.width, self.model.dotSize.height);
     self.itemBtn.frame = self.bounds;
-  //  self.redDot.frame = CGRectMake(CGRectGetWidth(self.frame)-6, 6, self.model.dotSize.width, self.model.dotSize.height);
 }
 
 @end
