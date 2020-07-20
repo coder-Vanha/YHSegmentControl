@@ -1,4 +1,4 @@
-# YHSegmentControl
+# YHSegmentControl[请给个小星星，谢谢]
 
 声明下，该demo v0.0.2 版本之前叫YHSegmentView,在V0.0.3版本之前改名叫YHSegmentControl
 
